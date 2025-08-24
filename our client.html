@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Clients - Himalayan Spring Water</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        body {
+            background-color: #E8F4FF;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 100px;
+            background-color: white;
+            position: relative;
+        }
+
+        header img {
+            width: 100px;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        header img:hover {
+            transform: scale(1.05);
+        }
+
+        p {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 18px;
+            font-weight: 300;
+        }
+
+        h1 {
+            font-family: 'DM Serif Display', serif;
+            color: #ffff;
+            font-size: 128px;
+        }
+
+        h2 {
+            font-family: 'DM Serif Display', serif;
+            color: #ffff;
+            font-size: 96px;
+        }
+
+        h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 48px;
+            font-weight: 400;
+        }
+
+        h4 {
+            font-family: 'DM Sans', serif;
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 20px 30px;
+            border-radius: 40px;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 20px;
+            color: white;
+            background-color: #72B1E7;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .tag {
+            display: flex;
+            background-color: #BBDAF6;
+            border: none;
+            border-radius: 25px;
+            justify-content: center;
+            align-items: center;
+            padding: 5px 20px;
+            margin-bottom: 10px;
+            height: 30px;
+            width: 120px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .tag.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tag p {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 16px;
+            text-align: center;
+            margin: 0;
+            line-height: normal;
+        }
+
+        /* Burger menu styles */
+        .burger {
+            display: none;
+            cursor: pointer;
+            width: 30px;
+            height: 25px;
+            position: relative;
+            z-index: 101;
+        }
+
+        .burger span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: #333;
+            border-radius: 3px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
+        }
+
+        .burger span:nth-child(1) {
+            top: 0px;
+        }
+
+        .burger span:nth-child(2), .burger span:nth-child(3) {
+            top: 10px;
+        }
+
+        .burger span:nth-child(4) {
+            top: 20px;
+        }
+
+        .burger.open span:nth-child(1) {
+            top: 10px;
+            width: 0%;
+            left: 50%;
+        }
+
+        .burger.open span:nth-child(2) {
+            transform: rotate(45deg);
+        }
+
+        .burger.open span:nth-child(3) {
+            transform: rotate(-45deg);
+        }
+
+        .burger.open span:nth-child(4) {
+            top: 10px;
+            width: 0%;
+            left: 50%;
+        }
+
+        /* Mobile menu styles */
+        @media (max-width: 768px) {
+            header {
+                padding: 20px 40px;
+            }
+            
+            .burger {
+                display: block;
+            }
+
+            .menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                max-width: 300px;
+                height: 100vh;
+                background-color: white;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 100px 30px 30px;
+                gap: 25px;
+                transition: right 0.3s ease-in-out;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                z-index: 100;
+            }
+
+            .menu.open {
+                right: 0;
+            }
+
+            .menu a {
+                font-size: 18px;
+                width: 100%;
+                padding: 10px 0;
+            }
+
+            .menu button {
+                width: 100%;
+                font-size: 16px;
+                padding: 12px 0;
+                text-align: center;
+            }
+
+            /* Overlay when menu is open */
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.5);
+                z-index: 99;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.3s, visibility 0.3s;
+            }
+
+            .overlay.open {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-left: auto;
+        }
+
+        .menu a {
+            font-size: 18px;
+            cursor: pointer;
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .menu a:hover {
+            color: #72B1E7;
+        }
+
+        .menu button {
+            padding: 10px 20px;
+            border-radius: 40px;
+            border: none;
+            font-size: 16px;
+            background-color: #72B1E7;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .menu button:hover {
+            transform: scale(1.05);
+        }
+
+        .hero {
+            height: 400px;
+            background: url(Resource/Hero.jpg) no-repeat center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            margin-left: 100px;
+            margin-right: 100px;
+            font-weight: bold;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            padding: 100px 100px;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .content {
+            display: flex;
+            text-align: left;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .left {
+            width: 50%;
+            text-align: left;
+        }
+
+        .section h3 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .section h3.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .client-text {
+            max-width: 100%;
+            margin-bottom: 50px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
+        }
+
+        .client-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .clients-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .client-info {
+            flex: 1;
+        }
+
+        .client-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .client-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease, box-shadow 0.3s ease;
+        }
+
+        .client-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .client-card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .client-card:nth-child(1) { transition-delay: 0.2s; }
+        .client-card:nth-child(2) { transition-delay: 0.4s; }
+
+        .client-card img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-right: 32px;
+            transition: transform 0.3s ease;
+        }
+
+        .client-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .client-card p {
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .client-card span {
+            font-weight: bold;
+            color: #72B1E7;
+        }
+
+        .client-image {
+            width: 40%;
+            background-image: url(Resource/Hero.jpg);
+            background-size: cover;
+            border-radius: 10px;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .client-image.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .footer-text {
+            font-style: italic;
+            color: #555;
+            margin-top: 40px;
+            font-size: 14px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease 0.6s, transform 0.8s ease 0.6s;
+            text-align: left;
+        }
+
+        .footer-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: #72B1E7;
+            text-align: center;
+            justify-content: space-between;
+            padding: 130px 20px;
+        }
+
+        .contact h3 {
+            font-family: 'DM Serif Display', serif;
+            margin-bottom: 36px;
+            color: #ffff;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .contact h3.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .contact a {
+            display: block;
+            margin-bottom: 36px;
+            color: #ffff;
+            text-decoration: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .contact a.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .contact a:nth-child(2) { transition-delay: 0.1s; }
+        .contact a:nth-child(3) { transition-delay: 0.2s; }
+
+        .contact p {
+            color: #ffff;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+        }
+
+        .contact p.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .contact button {
+            background-color: white;
+            color: black;
+            padding: 10px 30px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 36px;
+            margin-bottom: 36px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s;
+        }
+
+        .contact button.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .contact .socials img {
+            margin-right: 15px;
+            transition: transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .contact .socials img.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .contact .socials img:nth-child(1) { transition-delay: 0.5s; }
+        .contact .socials img:nth-child(2) { transition-delay: 0.6s; }
+        .contact .socials img:nth-child(3) { transition-delay: 0.7s; }
+        .contact .socials img:nth-child(4) { transition-delay: 0.8s; }
+
+        .contact .socials img:hover {
+            transform: scale(1.1) translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1E1E1E;
+            color: white;
+            padding: 20px 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        footer .footer-links1 a, .footer-links2 a {
+            color: white;
+            margin-right: 40px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer .footer-links1 a:hover, .footer-links2 a:hover {
+            color: #72B1E7;
+        }
+
+        footer .right {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        footer .logo {
+            width: 180px;
+            justify-self: center;
+            transition: transform 0.3s ease;
+        }
+
+        footer .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .footer-socials img {
+            margin-left: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-socials img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .left, .client-image {
+                width: 100%;
+            }
+            
+            .client-image {
+                height: 300px;
+                margin-top: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 20px 40px;
+            }
+
+            .section {
+                padding: 60px 40px;
+            }
+
+            p {
+                font-family: 'DM Sans', sans-serif;
+                font-size: 14px;
+                font-weight: 300;
+            }
+
+            h1 {
+                font-family: 'DM Serif Display', serif;
+                color: #ffff;
+                font-size: 40px;
+            }
+
+            h2 {
+                font-family: 'DM Serif Display', serif;
+                color: #ffff;
+                font-size: 32px;
+            }
+
+            h3 {
+                font-family: 'DM Serif Display', serif;
+                font-size: 32px;
+                font-weight: 400;
+            }
+
+            .hero {
+                margin-left: 40px;
+                margin-right: 40px;
+                height: 300px;
+                font-size: 2rem;
+            }
+
+            .tag {
+                display: flex;
+                background-color: #BBDAF6;
+                border: none;
+                border-radius: 25px;
+                justify-content: center;
+                padding: 0;
+                align-items: center;
+                margin-bottom: 10px;
+                height: 30px;
+                width: 120px;
+            }
+
+            .tag p {
+                font-family: 'DM Sans', sans-serif;
+                font-size: 12px;
+                text-align: center;
+                margin: 0;
+                line-height: normal;
+            }     
+
+            .client-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 20px;
+            }
+
+            .client-card img {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+
+            /* FOOTER MOBILE FIXES - CENTERED LINKS */
+            footer {
+                flex-direction: column;
+                padding: 40px 20px;
+                text-align: center;
+                gap: 30px;
+            }
+            
+            footer .left, footer .right {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer-links1, .footer-links2 {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                margin-bottom: 20px;
+                width: 100%;
+                align-items: center;
+            }
+            
+            footer .footer-links1 a, .footer-links2 a {
+                margin: 0;
+                margin-bottom: 10px;
+                width: 100%;
+                text-align: center;
+            }
+            
+            footer .logo {
+                margin: 20px 0;
+                order: -1;
+            }
+            
+            footer .right {
+                flex-direction: column;
+            }
+            
+            .footer-socials {
+                margin-top: 20px;
+                display: flex;
+                justify-content: center;
+            }
+            
+            .footer-socials img {
+                margin: 0 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 15px 20px;
+            }
+
+            .hero {
+                margin-left: 20px;
+                margin-right: 20px;
+                height: 250px;
+                font-size: 1.8rem;
+            }
+
+            .section {
+                padding: 40px 20px;
+            }
+
+            .client-image {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="Resource/LOGO.png" alt="Himalayan Spring Water Logo">
+        <div class="burger">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="menu">
+            <a>Home</a>
+            <a>About</a>
+            <a>Our Clients</a>
+            <a>Products</a>
+            <button>Contact Us</button>
+        </div>
+        <div class="overlay"></div>
+    </header>
+
+    <section class="hero">
+        Our Clients
+    </section>
+
+    <section class="section">
+        <div class="content">
+            <div class="left">
+                <div class="tag"><p>About us</p></div>
+                <h3>Industries We Serve</h3>
+                <p class="client-text">Since our inception, we've proudly partnered with a diverse range of clients across the hospitality and corporate sectors. Our commitment to quality and reliable service has earned us the trust of:</p>
+                <div class="clients-container">
+                    <div class="client-info">
+                        <div class="client-cards">
+                            <div class="client-card">
+                                <img src="Resource/Icons/Clients/mingcute_hotel-fill.png" alt="Hotel Icon">
+                                <p><span>Luxury Hotels & Resorts</span> We supply premium water solutions to some of the most well-known names in the hospitality industry. Our clients count on us to meet the highest standards of hygiene, taste, and service consistency.</p>
+                            </div>
+
+                            <div class="client-card">
+                                <img src="Resource/Icons/Clients/vaadin_office.png" alt="Corporate Icon">
+                                <p><span>Corporate Offices & Business Hubs</span> From large corporate headquarters to high-rise office complexes, we provide dependable bulk water supply solutions tailored to meet the daily hydration needs of busy work environments.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="client-image"></div>  
+        </div>
+        <p class="footer-text">From large corporate headquarters to high-rise office complexes, we provide dependable bulk water supply solutions tailored to meet the daily hydration needs of busy work environments. Our long-standing relationships with these industries are a testament to our professionalism, punctual delivery, and uncompromising quality. Whether it's for a five-star guest experience or a productive corporate environment, we deliver the essentials that keep businesses running smoothly.</p>
+    </section>
+
+    <section class="contact">
+        <h3>Contact Us</h3>
+        <a href="mailto:springhimalayan2022@yahoo.com">springhimalayan2022@yahoo.com</a>
+        <a href="tel:014333248">01-4333248</a>
+        <p>Chalnakhel-1, Dakshinkali, Kathmandu</p>
+        <button>Get in Touch</button>
+        <div class="socials">
+            <img src="Resource/Icons/Social/Social Media Icon Square/Facebook.png" alt="Facebook">
+            <img src="Resource/Icons/Social/Social Media Icon Square/Twitter.png" alt="Twitter">
+            <img src="Resource/Icons/Social/Social Media Icon Square/Instagram.png" alt="Instagram">
+            <img src="Resource/Icons/Social/Social Media Icon Square/LinkedIn.png" alt="LinkedIn">
+        </div>
+    </section>
+
+    <footer>
+        <div class="left">
+            <div class="footer-links1">
+                <a>Home</a>
+                <a>About</a>
+                <a>Our Clients</a>
+            </div>
+        </div>
+        
+        <img class="logo" src="Resource/LOGO.png" alt="Himalayan Spring Water Logo">
+        <div class="right">
+            <div class="footer-links2">
+                <a>Products</a>
+                <a>Contact Us</a>
+            </div>
+            <div class="footer-socials">
+                <img src="Resource/Icons/Social/ic_baseline-facebook.png" alt="Facebook">
+                <img src="Resource/Icons/Social/mdi_linkedin.png" alt="LinkedIn">
+                <img src="Resource/Icons/Social/ri_instagram-fill.png" alt="Instagram">
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Animation observer
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.tag, h3, .client-text, .client-card, .client-image, .footer-text, .contact h3, .contact a, .contact p, .contact button, .contact .socials img');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        };
+
+        // Burger menu functionality
+        const burgerMenu = () => {
+            const burger = document.querySelector('.burger');
+            const menu = document.querySelector('.menu');
+            const overlay = document.querySelector('.overlay');
+
+            burger.addEventListener('click', function() {
+                this.classList.toggle('open');
+                menu.classList.toggle('open');
+                overlay.classList.toggle('open');
+            });
+
+            overlay.addEventListener('click', function() {
+                burger.classList.remove('open');
+                menu.classList.remove('open');
+                this.classList.remove('open');
+            });
+
+            // Close menu when clicking on links
+            const menuLinks = document.querySelectorAll('.menu a, .menu button');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    burger.classList.remove('open');
+                    menu.classList.remove('open');
+                    overlay.classList.remove('open');
+                });
+            });
+        };
+
+        // Initialize animations and burger menu when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            animateOnScroll();
+            burgerMenu();
+            
+            // Add hover effects to client cards
+            const clientCards = document.querySelectorAll('.client-card');
+            clientCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-5px)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    if (card.classList.contains('visible')) {
+                        card.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+        });
+
+        // Handle reduced motion preference
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.querySelectorAll('*').forEach(el => {
+                el.style.animation = 'none';
+                el.style.transition = 'none';
+            });
+        }
+    </script>
+</body>
+</html>
