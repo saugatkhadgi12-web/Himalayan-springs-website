@@ -93,7 +93,7 @@
             cursor: pointer;
             text-decoration: none;
             color: #333;
-            transition: color 0.3s ease;
+            transition: color .3s ease;
         }
 
         .menu a:hover {
@@ -345,15 +345,53 @@
             min-height: 100px;
         }
 
+        .button-container {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
         .send-button {
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 极速赛車8s ease 0.6s, transform 0.8s ease 0.6s;
+            transition: opacity 0.8s ease 0.6s, transform 0.8s ease 0.6s;
+            flex: 1;
         }
 
         .send-button.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        .whatsapp-button {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease 0.7s, transform 0.8s ease 0.7s;
+            background: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-button:hover {
+            transform: scale(1.1);
+            background: #128C7E;
+        }
+
+        .whatsapp-button.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .whatsapp-button img {
+            width: 60px;
+            height: 60px;
         }
 
         .map-section {
@@ -450,6 +488,21 @@
             .contact-form {
                 margin-bottom: -100px;
                 padding: 30px;
+            }
+
+            .button-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .whatsapp-button {
+                width: 50px;
+                height: 50px;
+            }
+
+            .whatsapp-button img {
+                width: 50px;
+                height: 50px;
             }
 
             /* FOOTER MOBILE FIXES - CENTERED LINKS */
@@ -589,28 +642,33 @@
                 <textarea placeholder="Please type your message here..." required></textarea>
             </div>
 
-            <button type="submit" class="send-button">Send message</button>
+            <div class="button-container">
+                <button type="submit" class="send-button">Send message</button>
+                <button type="button" class="whatsapp-button" onclick="openWhatsApp()">
+                    <img src="Resource/Icons/whatsapp.png" alt="WhatsApp">
+                </button>
+            </div>
         </form>
     </section>
 
     <section class="map-section">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3303.961689930651!2d-86.81352768478245!3d33.5206603807519!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88891bc4222f8e7d%3A0x极速赛車90859f453abcc3c极速赛車6!2sJefferson%20County%20Courthouse!5e0!3m2!1sen!2sus!4v1621707507793!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3534.71716948216!2d85.28135247611193!3d27.633274928753398!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb17c297f58999%3A0xe965e84945864619!2sHIMALAYAN%20SPRING%20WATER%20COMPANY%2C%20Dakshinkali%2044600!5e0!3m2!1sen!2snp!4v1756100797099!5m2!1sen!2snp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </section>
 
     <footer>
         <div class="left">
             <div class="footer-links1">
-                <a href="#">Home</a>
-                <a href="#">About</a>
-                <a href="#">Our Clients</a>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="our client.html">Our Clients</a>
             </div>
         </div>
         
         <img class="logo" src="Resource/LOGO.png" alt="Himalayan Spring Water Logo">
         <div class="right">
             <div class="footer-links2">
-                <a href="#">Products</a>
-                <a href="#">Contact Us</a>
+                <a href="Products.html">Products</a>
+                <a href="Contact.html">Contact Us</a>
             </div>
             <div class="footer-socials">
                 <img src="Resource/Icons/Social/ic_baseline-facebook.png" alt="Facebook">
@@ -621,9 +679,17 @@
     </footer>
 
     <script>
+        // WhatsApp function - REPLACE WITH YOUR ACTUAL PHONE NUMBER
+        function openWhatsApp() {
+            const phoneNumber = "1234567890"; // Replace with your company's WhatsApp number
+            const message = "Hello! I'm interested in Himalayan Spring Water products.";
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
         // Animation observer
         const animateOnScroll = () => {
-            const elements = document.querySelectorAll('.contact-form, .contact-form h4, .contact-form p, .form-group, .send-button, .map-section');
+            const elements = document.querySelectorAll('.contact-form, .contact-form h4, .contact-form p, .form-group, .send-button, .whatsapp-button, .map-section');
             
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -639,7 +705,7 @@
             });
         };
 
-        // Burger menu functionality
+        // Burger menu functionality - FIXED NAVIGATION
         const burgerMenu = () => {
             const burger = document.querySelector('.burger');
             const menu = document.querySelector('.menu');
@@ -657,16 +723,28 @@
                 this.classList.remove('open');
             });
 
-            // Close menu when clicking on links
-            const menuLinks = document.querySelectorAll('.menu a, .menu button');
+            // Close menu when clicking on links - REMOVED preventDefault()
+            const menuLinks = document.querySelectorAll('.menu a');
             menuLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
+                link.addEventListener('click', function() {
+                    burger.classList.remove('open');
+                    menu.classList.remove('open');
+                    overlay.classList.remove('open');
+                    // Allow default navigation to happen
+                });
+            });
+
+            // Special handling for the button inside the menu link
+            const menuButton = document.querySelector('.menu button');
+            if (menuButton) {
+                menuButton.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent the link click event
+                    window.location.href = 'Contact.html';
                     burger.classList.remove('open');
                     menu.classList.remove('open');
                     overlay.classList.remove('open');
                 });
-            });
+            }
         };
 
         // Initialize animations when DOM is loaded
@@ -684,6 +762,14 @@
                     input.parentElement.style.transform = 'translateY(0)';
                 });
             });
+
+            // Form submission
+            const form = document.querySelector('.contact-form');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your message! We will get back to you soon.');
+                form.reset();
+            });
         });
 
         // Handle reduced motion preference
@@ -695,5 +781,4 @@
         }
     </script>
 </body>
-
 </html>
